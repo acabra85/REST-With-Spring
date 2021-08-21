@@ -61,6 +61,14 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 		</dependency>
 
+
+		<!-- Validation -->
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+
 		<!-- proxying -->
 
 		<dependency>

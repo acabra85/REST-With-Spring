@@ -3,6 +3,8 @@ package com.baeldung.um.web.dto;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,6 +31,10 @@ public class UserDto implements INameableEntity, INameableDto {
     private String email;
 
     private String password;
+
+    @Min(0)
+    @Max(99)
+    private int age;
 
     /* Marshalling */
     // - note: this gets rid of the collection entirely

@@ -3,10 +3,12 @@ package com.baeldung.um.spring;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -34,5 +36,10 @@ public class UmWebConfig extends WebMvcConfigurerAdapter {
             converter.getObjectMapper()
                 .enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         }
+    }
+
+    @Bean
+    public javax.validation.Validator localValidatorFactoryBean() {
+        return new LocalValidatorFactoryBean();
     }
 }
