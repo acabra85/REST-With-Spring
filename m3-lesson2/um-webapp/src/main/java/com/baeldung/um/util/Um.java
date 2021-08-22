@@ -7,11 +7,11 @@ public final class Um {
      * - note: the fact that these Privileges are prefixed with `ROLES` is a Spring convention (which can be overriden if needed)
      */
     public static final String ADMIN_USERNAME = "admin";
-    public static final String ADMIN_PASS = "adminpass";
+    public static final String ADMIN_PASS = "pass";
     public static final String ADMIN_EMAIL = "admin@fake.com";
 
     public static final String USER_USERNAME = "user";
-    public static final String USER_PASS = "userpass";
+    public static final String USER_PASS = "pass";
     public static final String USER_EMAIL = "user@fake.com";
 
     public static final String NAME = ADMIN_USERNAME;

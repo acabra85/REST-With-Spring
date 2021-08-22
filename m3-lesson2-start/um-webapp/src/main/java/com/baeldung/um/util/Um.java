@@ -7,11 +7,11 @@ public final class Um {
      * - note: the fact that these Privileges are prefixed with `ROLES` is a Spring convention (which can be overriden if needed)
      */
     public static final String ADMIN_USERNAME = "admin";
-    public static final String ADMIN_PASS = "adminpass";
+    public static final String ADMIN_PASS = "pass";
     public static final String ADMIN_EMAIL = "admin@fake.com";
 
     public static final String USER_USERNAME = "user";
-    public static final String USER_PASS = "userpass";
+    public static final String USER_PASS = "pass";
     public static final String USER_EMAIL = "user@fake.com";
 
     public static final String NAME = ADMIN_USERNAME;
@@ -24,7 +24,8 @@ public final class Um {
 
         // User
         public static final String CAN_USER_READ = "ROLE_USER_READ";
-        public static final String CAN_USER_WRITE = "ROLE_USER_WRITE";
+        public static final String CAN_USER_UPDATE = "ROLE_USER_UPDATE";
+        public static final String CAN_USER_DELETE = "ROLE_USER_DELETE";
 
         // Role
         public static final String CAN_ROLE_READ = "ROLE_ROLE_READ";
@@ -34,6 +35,8 @@ public final class Um {
         public static final String CAN_PRIVILEGE_READ = "ROLE_PRIVILEGE_READ";
         public static final String CAN_PRIVILEGE_WRITE = "ROLE_PRIVILEGE_WRITE";
 
+        public static final String CAN_PRIVILEGE_CREATE = "ROLE_PRIVILEGE_CREATE";
+        public static final String CAN_PRIVILEGE_DELETE = "ROLE_PRIVILEGE_DELETE";
     }
 
     public static final class Roles {

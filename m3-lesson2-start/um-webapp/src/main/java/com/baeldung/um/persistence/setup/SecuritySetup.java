@@ -82,7 +82,8 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
         createPrivilegeIfNotExisting(Privileges.CAN_ROLE_WRITE);
 
         createPrivilegeIfNotExisting(Privileges.CAN_USER_READ);
-        createPrivilegeIfNotExisting(Privileges.CAN_USER_WRITE);
+        createPrivilegeIfNotExisting(Privileges.CAN_USER_UPDATE);
+        createPrivilegeIfNotExisting(Privileges.CAN_USER_DELETE);
     }
 
     final void createPrivilegeIfNotExisting(final String name) {
@@ -98,20 +99,30 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
     private void createRoles() {
         final Privilege canPrivilegeRead = privilegeService.findByName(Privileges.CAN_PRIVILEGE_READ);
         final Privilege canPrivilegeWrite = privilegeService.findByName(Privileges.CAN_PRIVILEGE_WRITE);
+
         final Privilege canRoleRead = privilegeService.findByName(Privileges.CAN_ROLE_READ);
         final Privilege canRoleWrite = privilegeService.findByName(Privileges.CAN_ROLE_WRITE);
+
         final Privilege canUserRead = privilegeService.findByName(Privileges.CAN_USER_READ);
-        final Privilege canUserWrite = privilegeService.findByName(Privileges.CAN_USER_WRITE);
+        final Privilege canUserUpdate = privilegeService.findByName(Privileges.CAN_USER_UPDATE);
+        final Privilege canUserDelete = privilegeService.findByName(Privileges.CAN_USER_DELETE);
+
 
         Preconditions.checkNotNull(canPrivilegeRead);
         Preconditions.checkNotNull(canPrivilegeWrite);
+
         Preconditions.checkNotNull(canRoleRead);
         Preconditions.checkNotNull(canRoleWrite);
+
         Preconditions.checkNotNull(canUserRead);
-        Preconditions.checkNotNull(canUserWrite);
+        Preconditions.checkNotNull(canUserUpdate);
+        Preconditions.checkNotNull(canUserDelete);
 
         createRoleIfNotExisting(Roles.ROLE_USER, Sets.<Privilege> newHashSet(canUserRead, canRoleRead, canPrivilegeRead));
-        createRoleIfNotExisting(Roles.ROLE_ADMIN, Sets.<Privilege> newHashSet(canUserRead, canUserWrite, canRoleRead, canRoleWrite, canPrivilegeRead, canPrivilegeWrite));
+        createRoleIfNotExisting(Roles.ROLE_ADMIN, Sets.<Privilege> newHashSet(
+                canUserRead, canUserUpdate, canUserDelete,
+                canRoleRead, canRoleWrite,
+                canPrivilegeRead, canPrivilegeWrite));
     }
 
     final void createRoleIfNotExisting(final String name, final Set<Privilege> privileges) {
@@ -129,8 +140,9 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
         final Role roleAdmin = roleService.findByName(Roles.ROLE_ADMIN);
         final Role roleUser = roleService.findByName(Roles.ROLE_USER);
 
-        createUserIfNotExisting(Um.ADMIN_EMAIL, Um.ADMIN_PASS, Sets.<Role> newHashSet(roleAdmin));
-        createUserIfNotExisting(Um.USER_EMAIL, Um.USER_PASS, Sets.<Role> newHashSet(roleUser));
+        createUserIfNotExisting(Um.ADMIN_USERNAME, Um.ADMIN_PASS, Sets.<Role> newHashSet(roleAdmin));
+        createUserIfNotExisting(Um.USER_USERNAME, Um.USER_PASS, Sets.<Role> newHashSet(roleUser));
+        createUserIfNotExisting("funny", "pass", Sets.<Role> newHashSet(roleUser));
     }
 
     final void createUserIfNotExisting(final String loginName, final String pass, final Set<Role> roles) {
