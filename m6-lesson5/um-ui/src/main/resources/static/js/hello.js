@@ -1,18 +1,4 @@
-angular.module('hello', [ 'ngResource', 'ngRoute' ]).config(function($routeProvider, $httpProvider) {
-
-    $routeProvider.when('/', {
-        templateUrl : 'home.html',
-        controller : 'home'
-    }).when('/login', {
-        templateUrl : 'login.html',
-        controller : 'navigation'
-    }).otherwise('/');
-
-    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-}).controller('navigation',
-
-function($rootScope, $scope, $http, $httpParamSerializer, $location, $route, $window) {
+const navigationCtrl = function($rootScope, $scope, $http, $httpParamSerializer, $location, $route, $window) {
 
     $scope.tab = function(route) {
         return $route.current && route === $route.current.controller;
@@ -67,15 +53,30 @@ function($rootScope, $scope, $http, $httpParamSerializer, $location, $route, $wi
         })
     };
 
-}).controller('home', function($scope, $http, $window) {
-    var headers = {
-        "Accept" : "application/json", 
+};
+const homeCtrl = function($scope, $http, $window) {
+    const headers = {
+        "Accept" : "application/json",
         authorization : "Bearer " + $window.sessionStorage.accessToken
     };
-    
+
     $http.get("http://localhost:8082/um-webapp/api/roles/1", {
         headers : headers
     }).success(function(data) {
         $scope.role = data;
     })
-});
+};
+
+angular.module('hello', [ 'ngResource', 'ngRoute' ]).config(function($routeProvider, $httpProvider) {
+        $routeProvider.when('/', {
+            templateUrl : 'home.html',
+            controller : 'home'
+        }).when('/login', {
+            templateUrl : 'login.html',
+            controller : 'navigation'
+        }).otherwise('/');
+        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+    })
+    .controller('navigation', navigationCtrl)
+    .controller('home', homeCtrl);
