@@ -13,10 +13,10 @@ public class UmServletConfig {
     }
 
     // beans
-
-    @Bean
-    public SimpleCorsFilter simpleCorsFilter() {
-        return new SimpleCorsFilter();
-    }
+//
+//    @Bean
+//    public SimpleCorsFilter simpleCorsFilter() {
+//        return new SimpleCorsFilter();
+//    }
 
 }
